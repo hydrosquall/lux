@@ -17,6 +17,7 @@ import altair as alt
 import math
 
 alt.data_transformers.disable_max_rows()
+from lux.utils.sanitize_column_name import sanitize_column_name
 
 
 class Histogram(AltairChart):
@@ -48,7 +49,7 @@ class Histogram(AltairChart):
         x_range = abs(x_max - x_min)
 
         if isinstance(msr_attr.attribute, str):
-            msr_attr.attribute = msr_attr.attribute.replace(".", "")
+            msr_attr.attribute = sanitize_column_name(msr_attr.attribute)
         markbar = compute_bin_width(self.data[msr_attr.attribute])
         step = abs(self.data[msr_attr.attribute][1] - self.data[msr_attr.attribute][0])
 

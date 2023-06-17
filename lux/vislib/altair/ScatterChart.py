@@ -16,7 +16,7 @@ from lux.vislib.altair.AltairChart import AltairChart
 import altair as alt
 
 alt.data_transformers.disable_max_rows()
-
+from lux.utils.sanitize_column_name import sanitize_column_name
 
 class ScatterChart(AltairChart):
     """
@@ -53,9 +53,9 @@ class ScatterChart(AltairChart):
         y_max = self.vis.min_max[y_attr.attribute][1]
 
         if isinstance(x_attr.attribute, str):
-            x_attr.attribute = x_attr.attribute.replace(".", "")
+            x_attr.attribute = sanitize_column_name(x_attr.attribute)
         if isinstance(y_attr.attribute, str):
-            y_attr.attribute = y_attr.attribute.replace(".", "")
+            y_attr.attribute = sanitize_column_name(y_attr.attribute)
         self.data = AltairChart.sanitize_dataframe(self.data)
         chart = (
             alt.Chart(self.data)

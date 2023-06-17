@@ -69,12 +69,16 @@ class AltairRenderer:
                     vis.data[attr].iloc[0], pd.Interval
                 ):
                     vis.data[attr] = vis.data[attr].astype(str)
-                if isinstance(attr, str):
-                    if "." in attr:
-                        attr_clause = vis.get_attr_by_attr_name(attr)[0]
-                        # Suppress special character ".", not displayable in Altair
-                        # attr_clause.attribute = attr_clause.attribute.replace(".", "")
-                        vis._vis_data = vis.data.rename(columns={attr: attr.replace(".", "")})
+
+                # No need to rename the attrs at the dataset level
+                # Each vis will add an escape character so that the original field names can be read normally
+                # for full correspondence with the input dataset.
+                # if isinstance(attr, str):
+                #     if "." in attr:
+                #         # attr_clause = vis.get_attr_by_attr_name(attr)[0]
+                #         # Suppress special character ".", not displayable in Altair
+                #         # attr_clause.attribute = attr_clause.attribute.replace(".", "\\.")
+                #         vis._vis_data = vis.data.rename(columns={attr: attr.replace(".", "\\.")})
         if vis.mark == "histogram":
             chart = Histogram(vis)
         elif vis.mark == "bar":

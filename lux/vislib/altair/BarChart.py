@@ -13,9 +13,11 @@
 #  limitations under the License.
 
 from lux.vislib.altair.AltairChart import AltairChart
+from lux.utils.sanitize_column_name import sanitize_column_name
 import altair as alt
 import lux
 import math
+
 
 alt.data_transformers.disable_max_rows()
 from lux.utils.utils import get_agg_title
@@ -54,9 +56,9 @@ class BarChart(AltairChart):
             y_attr_abv = y_attr.attribute[:prefix_len] + "..." + y_attr.attribute[-suffix_len:]
 
         if isinstance(x_attr.attribute, str):
-            x_attr.attribute = x_attr.attribute.replace(".", "")
+            x_attr.attribute = sanitize_column_name(x_attr.attribute)
         if isinstance(y_attr.attribute, str):
-            y_attr.attribute = y_attr.attribute.replace(".", "")
+            y_attr.attribute = sanitize_column_name(y_attr.attribute)
 
         # To get datetime to display correctly on bar charts
         if x_attr.data_type == "temporal":
@@ -125,7 +127,7 @@ class BarChart(AltairChart):
             )
 
             self._topkcode = f"""text = alt.Chart(visData).mark_text(
-			x={155 * plotting_scale}, 
+			x={155 * plotting_scale},
 			y={142 * plotting_scale},
 			align="right",
 			color = "#ff8e04",
