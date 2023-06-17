@@ -13,10 +13,12 @@
 #  limitations under the License.
 
 from lux.vislib.altair.AltairChart import AltairChart
+
 import altair as alt
 
 alt.data_transformers.disable_max_rows()
 from lux.utils.utils import get_agg_title
+from lux.utils.sanitize_column_name import sanitize_column_name
 
 
 class LineChart(AltairChart):
@@ -54,9 +56,9 @@ class LineChart(AltairChart):
             y_attr_abv = y_attr.attribute[:15] + "..." + y_attr.attribute[-10:]
 
         if isinstance(x_attr.attribute, str):
-            x_attr.attribute = x_attr.attribute.replace(".", "\\.")
+            x_attr.attribute = sanitize_column_name(x_attr.attribute)
         if isinstance(y_attr.attribute, str):
-            y_attr.attribute = y_attr.attribute.replace(".", "\\.")
+            y_attr.attribute = sanitize_column_name(y_attr.attribute)
 
         # Remove NaNs only for Line Charts (offsets axis range)
         self.data = self.data.dropna(subset=[x_attr.attribute, y_attr.attribute])
