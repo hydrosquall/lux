@@ -48,7 +48,7 @@ class Histogram(AltairChart):
         x_range = abs(x_max - x_min)
 
         if isinstance(msr_attr.attribute, str):
-            msr_attr.attribute = msr_attr.attribute.replace(".", "")
+            msr_attr.attribute = msr_attr.attribute.replace(".", "\\.")
         markbar = compute_bin_width(self.data[msr_attr.attribute])
         step = abs(self.data[msr_attr.attribute][1] - self.data[msr_attr.attribute][0])
 

@@ -54,9 +54,9 @@ class LineChart(AltairChart):
             y_attr_abv = y_attr.attribute[:15] + "..." + y_attr.attribute[-10:]
 
         if isinstance(x_attr.attribute, str):
-            x_attr.attribute = x_attr.attribute.replace(".", "")
+            x_attr.attribute = x_attr.attribute.replace(".", "\\.")
         if isinstance(y_attr.attribute, str):
-            y_attr.attribute = y_attr.attribute.replace(".", "")
+            y_attr.attribute = y_attr.attribute.replace(".", "\\.")
 
         # Remove NaNs only for Line Charts (offsets axis range)
         self.data = self.data.dropna(subset=[x_attr.attribute, y_attr.attribute])

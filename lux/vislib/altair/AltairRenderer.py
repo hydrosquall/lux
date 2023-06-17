@@ -73,8 +73,8 @@ class AltairRenderer:
                     if "." in attr:
                         attr_clause = vis.get_attr_by_attr_name(attr)[0]
                         # Suppress special character ".", not displayable in Altair
-                        # attr_clause.attribute = attr_clause.attribute.replace(".", "")
-                        vis._vis_data = vis.data.rename(columns={attr: attr.replace(".", "")})
+                        # attr_clause.attribute = attr_clause.attribute.replace(".", "\\.")
+                        vis._vis_data = vis.data.rename(columns={attr: attr.replace(".", "\\.")})
         if vis.mark == "histogram":
             chart = Histogram(vis)
         elif vis.mark == "bar":

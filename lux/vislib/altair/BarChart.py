@@ -54,9 +54,9 @@ class BarChart(AltairChart):
             y_attr_abv = y_attr.attribute[:prefix_len] + "..." + y_attr.attribute[-suffix_len:]
 
         if isinstance(x_attr.attribute, str):
-            x_attr.attribute = x_attr.attribute.replace(".", "")
+            x_attr.attribute = x_attr.attribute.replace(".", "\\.")
         if isinstance(y_attr.attribute, str):
-            y_attr.attribute = y_attr.attribute.replace(".", "")
+            y_attr.attribute = y_attr.attribute.replace(".", "\\.")
 
         # To get datetime to display correctly on bar charts
         if x_attr.data_type == "temporal":
@@ -125,7 +125,7 @@ class BarChart(AltairChart):
             )
 
             self._topkcode = f"""text = alt.Chart(visData).mark_text(
-			x={155 * plotting_scale}, 
+			x={155 * plotting_scale},
 			y={142 * plotting_scale},
 			align="right",
 			color = "#ff8e04",
